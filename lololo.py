@@ -3,7 +3,6 @@ import mediapipe as mp
 import time
 import math
 
-
 class handDetector():
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
         self.mode = mode
@@ -12,8 +11,12 @@ class handDetector():
         self.trackCon = trackCon
 
         self.mpHands = mp.solutions.hands
-        self.hands = self.mpHands.Hands(self.mode, self.maxHands,
-                                        self.detectionCon, self.trackCon)
+        self.hands = self.mpHands.Hands(
+            static_image_mode=False, 
+            max_num_hands=1,  # This should be an integer
+            min_detection_confidence=0.5, 
+            min_tracking_confidence=0.5
+        )
         self.mpDraw = mp.solutions.drawing_utils
         self.tipIds = [4, 8, 12, 16, 20]
 
